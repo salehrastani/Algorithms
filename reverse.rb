@@ -1,3 +1,5 @@
+# reverse the elements within an array without a loop
+
 def recursive_reversal(array)
 
   return array if array == []
