@@ -1,4 +1,3 @@
-array = [6,5,3,1,8,7,2,4]
 
 def merge_sort(array)
   if array.length <= 1
@@ -17,11 +16,8 @@ def merge(left, right)
   elsif right.empty?
     left
   elsif left[0] > right[0]
-    [right[0]] + merge(right[1..-1], left)
+    merge(left, right[1..-1]).unshift(right[0])
   else
-    [left[0]] + merge(left[1..-1], right)
+    merge(left[1..-1], right).unshift(left[0])
   end
 end
-
-
-p merge_sort(array)
