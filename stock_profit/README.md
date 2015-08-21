@@ -4,13 +4,9 @@ Each day, your stock will have a price. On any given day you can either buy a st
 The inputs will include the number of testcases, the number of days, and the price of the stock within those days.
 
 Input:
-
 `1`
-
 `3`
-
 `5 7 50`
 
 Output:
-
 `88`
