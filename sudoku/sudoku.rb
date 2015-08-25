@@ -26,65 +26,70 @@ class Sudoku
         row << number
       end
     end
-    row
+    p row
   end
 
   def column(dash_index)
     @board_rows = @board_array.each_slice(9).to_a
     column_index = dash_index/9
-    @board_rows[column_index]
+    p @board_rows[column_index]
   end
 
-#  box_1 = []
-#  box_2 = []
-#  box_3 = []
-#  board_boxes = []
-#  board_array.each_with_index do |number, index|
-#      if index/9 < 3
-#          if (index % 9) < 3
-#             box_1 << number
-#          elsif 3 <= index%9 && index%9 < 6
-#             box_2 << number
-#          else
-#             box_3 << number
-#          end
-
-#      end
-#  end
-#  board_boxes <<box_1 << box_2 << box_3
   def box_index(dash_index)
     case dash_index
     when 0,1,2,9,10,11,18,19,20
       0
-    when 3,4,5,12,13,15,21,22,23
+    when 3,4,5,12,13,14,21,22,23
       1
+    when 6,7,8,15,16,17,24,25,26
+      2
+    when 27,28,29,36,37,38,45,46,47
+      3
+    when 30,31,32,39,40,41,48,49,50
+      4
+    when 33,34,35,42,43,44,51,52,53
+      5
+    when 54,55,56,63,64,65,72,73,74
+      6
+    when 57,58,59,66,67,68,75,76,77
+      7
     else
-      p 1
+      8
     end
   end
 
-  def box(dash_index)
+ def box(dash_index)
     box_index = box_index(dash_index)
-    @board_boxes = []
+    @board_boxes = [[], [], [], [], [], [], [], [], []]
     @board_array.each_with_index do |number, index|
       if index/9 < 3
         if index%9 < 3
-          @board_boxes << number
-        elsif 3 <= index%9 && index%9< 6
-          @board_boxes << number
+            @board_boxes[0] << number
+        elsif 3 <= index%9 && index%9 < 6
+            @board_boxes[1] << number
         else
-          @board_boxes << number
+            @board_boxes[2] << number
+        end
+      elsif 3 <= index/9 && index/9 < 6
+        if index%9 < 3
+          @board_boxes[3] << number
+        elsif 3 <= index%9 && index%9 < 6
+          @board_boxes[4] << number
+        else
+          @board_boxes[5] << number
+        end
+      else
+        if index%9 < 3
+          @board_boxes[6] << number
+        elsif 3 <= index%9 && index%9 < 6
+          @board_boxes[7] << number
+        else
+          @board_boxes[8] << number
         end
       end
-      # if 3 <= index/9 < 6
-      #   if 3<=index%9 <= 6
-      # end
-      # if
-      #   6 <= index/9 < 9 &&  6<=index%9 < 9
-      # end
     end
-    p @board_boxes
-  end
+    p @board_boxes[box_index]
+end
 
   # Returns a string representing the current state of the board
   def to_s
