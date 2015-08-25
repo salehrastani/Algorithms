@@ -13,10 +13,13 @@ class Sudoku
         column = self.column(index)
         box = self.box(index)
       end
+      if possibilites == 1
+
+      end
     end
   end
 
-  def board
+  def possibilites
   end
 
   def row(dash_index)
@@ -26,13 +29,13 @@ class Sudoku
         row << number
       end
     end
-    p row
+    row
   end
 
   def column(dash_index)
     @board_rows = @board_array.each_slice(9).to_a
     column_index = dash_index/9
-    p @board_rows[column_index]
+    @board_rows[column_index]
   end
 
   def box_index(dash_index)
@@ -88,12 +91,16 @@ class Sudoku
         end
       end
     end
-    p @board_boxes[box_index]
+    @board_boxes[box_index]
 end
 
-  # Returns a string representing the current state of the board
-  def to_s
-    # @board_string
+  def display
+    counter = 0
+    [9,18,27,36,45,54,63,72].each_with_index do |number, index|
+      adaptive_index = number + index
+      @board_string.insert(adaptive_index, "\n")
+    end
+    @board_string.each_char {|i| print " " + i}
   end
 end
 
@@ -102,4 +109,5 @@ board_string = "4-52697816825714931978345628261953473746829159517436285193268742
 
 game = Sudoku.new(board_string)
 game.solve
-game
+game.display
+
