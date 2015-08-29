@@ -3,7 +3,7 @@ class Sudoku
     @board_string = board_string
     @board_array = @board_string.split("")
     @numbers = %w{1 2 3 4 5 6 7 8 9}
-    # @pivot = 0
+    # @pivot = 0 /for dnammic programming
   end
 
   def solve
@@ -12,15 +12,35 @@ class Sudoku
         row = self.row(index)
         column = self.column(index)
         box = self.box(index)
-      end
-      if possibilites == 1
-
+        [row, column, box].each do |section|
+          if possibilites(section) == 1
+            @numbers.each do |number|
+              if section.include?(number) == false
+                @board_string[index] = number
+              end
+            end
+          end
+        end
       end
     end
   end
 
-  def possibilites
+  def possibilites(section)
+    section.count("-")
   end
+
+  # def missing_number(section)
+  #   if possibilites(section) == 1
+  #     numbers.each do |number|
+  #       if row.include?(number) == false
+  #         fill_cell(number)
+  #       end
+  #     end
+  #   end
+  # end
+
+  # def fill_cell(number, index)
+  # end
 
   def row(dash_index)
     row = []
@@ -100,14 +120,14 @@ end
       adaptive_index = number + index
       @board_string.insert(adaptive_index, "\n")
     end
-    @board_string.each_char {|i| print " " + i}
+    @board_string.each_char {|i| print "  " + i}
   end
 end
 
 # board_string = File.readlines('sudoku_puzzles.txt').first.chomp
-board_string = "4-5269781682571493197834562826195347374682915951743628519326874248957136763418259"
 
-game = Sudoku.new(board_string)
-game.solve
-game.display
+game_1 = Sudoku.new("4-5269781682571493197834562826195347374682915951743628519326874248957136763418259")
+# game_2 = Sudoku.new()
+game_1.solve
+game_1.display
 
